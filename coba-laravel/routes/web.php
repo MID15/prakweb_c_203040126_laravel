@@ -48,19 +48,3 @@ Route::get('/blog', [PostController::class, 'index']);
 
 // halaman Single Posts
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
-
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'tittle' => "Post by Category : $category->name",
-        "active" => 'categories',
-        'posts' => $category->posts->load('category', 'author'),
-        'category' => $category->name
-    ]);
-});
-
-Route::get('/authors/{author:username}', function (User $author) {
-    return view('posts', [
-        'tittle' => "Post by Author : $author->name",
-        'posts' => $author->posts->load('category', 'author')
-    ]);
-});
