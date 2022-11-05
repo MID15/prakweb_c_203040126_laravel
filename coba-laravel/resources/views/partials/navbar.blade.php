@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {{ ($active === "home") ? 'active' : ''}}" aria-current="page" href="/">Home</a>
+          <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ ($active === "about") ? 'active' : ''}}" href="/about">About</a>
+          <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ ($active === "posts") ? 'active' : ''}}" href="/blog">Blog</a>
+          <a class="nav-link {{ Request::is('blog') ? 'active' : '' }}" href="/blog">Blog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ ($active === "categories") ? 'active' : ''}}" href="/categories">Category</a>
+          <a class="nav-link {{ Request::is('categories') ? 'active' : '' }}" href="/categories">Category</a>
         </li>
       </ul>
 
@@ -40,7 +40,7 @@
         @else
 
           <li class="nav-item">
-            <a href="/login" class="nav-link {{ ($active === "login") ? 'active' : ''}}"><i class="bi bi-box-arrow-in-right"></i> Log In</a>
+            <a href="/login" class="nav-link {{ Request::is('login') ? 'active' : '' }}"><i class="bi bi-box-arrow-in-right"></i> Log In</a>
           </li>
       @endauth
       </ul>
