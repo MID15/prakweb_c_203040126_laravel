@@ -7,27 +7,45 @@
 </div>
     
 <div class="col-lg-8">
-  <form method="post" action="/dashboard/posts">
+  <form method="post" action="/dashboard/posts" class="mb-5">
     @csrf
     <div class="mb-3">
       <label for="tittle" class="form-label">Title</label>
-      <input type="text" class="form-control" id="tittle" name="tittle">
+      <input type="text" class="form-control @error('tittle') is-invalid @enderror" id="tittle" name="tittle" required autofocus value="{{ old('tittle') }}">
+      @error('title')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+      @enderror
     </div>
     <div class="mb-3">
       <label for="slug" class="form-label">Slug</label>
-      <input type="text" class="form-control" id="slug" name="slug">
+      <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" required value="{{ old('slug') }}">
+      @error('slug')
+      <div class="invalid-feedback">
+        {{ $message }}
+      </div>
+  @enderror
     </div>
     <div class="mb-3">
       <label for="category" class="form-label">Category</label>
       <select class="form-select" name="category_id">
         @foreach ($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->name }}</option>
+          @if (old('category_id') == $category->id)
+           <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+          @else
+           <option value="{{ $category->id }}" >{{ $category->name }}</option>
+          @endif
+        
         @endforeach
       </select>
     </div>
     <div class="mb-3">
       <label for="body" class="form-label">Body</label>
-      <input id="body" type="hidden" name="body">
+      @error('body')
+        <p class="text-danger">{{ $message }}</p>
+      @enderror
+      <input id="body" type="hidden" name="body" value="{{ old('body') }}">
       <trix-editor input="body"></trix-editor>
     </div>
     <button type="submit" class="btn btn-primary">Create Post</button>
